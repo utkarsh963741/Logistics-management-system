@@ -12,6 +12,13 @@ function create() {
                 <div className={styles.container}>
                     <h2 style={{margin:"10px"}}>Add Sales</h2>
                     <form>
+                    <label for="category">Select Store</label>
+                        <select className={styles.input_box} name="category">
+                            <option value="" disabled selected>Choose Category...</option>
+                            <option value="1">Factory1</option>
+                            <option value="2">Factory2</option>
+                            <option value="3">Factory3</option>
+                        </select>
                     
                         <label for="category">Select Product</label>
                         <select className={styles.input_box} name="category">
