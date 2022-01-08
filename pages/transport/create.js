@@ -22,9 +22,6 @@ function create() {
 
                         <label for="title">Licence Number</label>
                         <input className={styles.input_box} type="text" id="title" name="title" placeholder="Enter Quantity..."/>
-
-                        <label for="title">Max Quantity</label>
-                        <input className={styles.input_box} type="number" id="title" name="title" placeholder="Enter Quantity..."/>
                     
                         <button className={styles.btn}>Add Vehicle</button>
                     </form>

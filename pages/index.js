@@ -20,7 +20,7 @@ export default function Home() {
       if(session)
       {
         setSession(session)
-        router.push('/account')
+        router.push('/home')
       }
     })
   }, [])
@@ -34,7 +34,7 @@ export default function Home() {
         const profileData = await supabase.auth.user()
 
         if (profileData) {
-            router.push('/account')
+            router.push('/home')
         }
 
     } catch (error) {

@@ -22,18 +22,18 @@ function Sidebar(props) {
             <ul className={styles.nav}>
                 <Link href='/home'>
                     <li className={styles.nav_item}>
-                            <div>
-                                <i className='fas fa-home'></i>
-                                Home
-                            </div>
+                        <div>
+                            <i className='fas fa-home'></i>
+                            Home
+                        </div>
                     </li>
                 </Link>
                 <Link href='/product/create'>
                     <li className={styles.nav_item}>
-                            <div>
-                                <i className='fas fa-box-open'></i>
-                                Create Product
-                            </div>
+                        <div>
+                            <i className='fas fa-box-open'></i>
+                            Create Product
+                        </div>
                     </li>
                 </Link>
                 <li className={styles.nav_item}>
@@ -67,17 +67,20 @@ function Sidebar(props) {
                     <i className='fas fa-th-list'></i>
                     List Vehicles
                 </li>
-                <li className={styles.nav_item}>
-                    <i className='fas fa-dollar-sign'></i>
-                    Add Sales
-                </li>
+                <Link href='/retail/create'>
+                    <li className={styles.nav_item}>
+                        <i className='fas fa-dollar-sign'></i>
+                        Add Sales
+                    </li>
+                </Link>
+
                 <li className={styles.nav_item}>
                     <i className='fas fa-file-invoice-dollar'></i>
                     List Sales
                 </li>
             </ul>
             <ul className={styles.nav}>
-            <li className={styles.nav_item}>
+                <li className={styles.nav_item}>
                     <i className='fas fa-cog'></i>
                     Settings
                 </li>
