@@ -44,10 +44,18 @@ function Sidebar(props) {
                             </div>
                     </li>
                 </Link>
+                <Link href='/product/list-products'>
                 <li className={styles.nav_item}>
                     <i className='fas fa-clipboard-list'></i>
                     List Products
                 </li>
+                </Link>
+                <Link href='/product/list-productions'>
+                <li className={styles.nav_item}>
+                    <i className='fas fa-clipboard-list'></i>
+                    List Productions
+                </li>
+                </Link>
                 <Link href='/locations/create'>
                     <li className={styles.nav_item}>
                         <i className='fas fa-map-marker-alt'></i>
@@ -74,11 +82,13 @@ function Sidebar(props) {
                         Add Vehicle
                     </li>
                 </Link>
+                <Link href='/transport/list'>
                 <li className={styles.nav_item}  >
                     <i className='fas fa-th-list'></i>
                     List Vehicles
                 </li>
-                <Link href='/retail/create'>
+                </Link>
+                {/* <Link href='/retail/create'>
                     <li className={styles.nav_item}>
                         <i className='fas fa-dollar-sign'></i>
                         Add Sales
@@ -88,7 +98,7 @@ function Sidebar(props) {
                 <li className={styles.nav_item}>
                     <i className='fas fa-file-invoice-dollar'></i>
                     List Sales
-                </li>
+                </li> */}
             </ul>
             <ul className={styles.nav}>
                 <li className={styles.nav_item}>
