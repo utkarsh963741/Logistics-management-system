@@ -11,6 +11,7 @@
   --color-pink :#00CCFF;
   --color-yellow : #ffc301;
   --navbar-height:70px;
+  --container-height: calc(100vh - 20px - var(--navbar-height))
 }
 
 

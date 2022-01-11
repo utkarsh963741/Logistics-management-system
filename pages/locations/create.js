@@ -1,19 +1,57 @@
-import React from 'react'
+import React,{useState,useRef} from 'react'
 import Layout from '../../components/Layout'
 import styles from '../../styles/Form.module.css'
 import dynamic from "next/dynamic";
 import { supabase } from '../../utils/supabaseClient'
 import { useRouter } from 'next/router'
-import { useState } from 'react/cjs/react.development';
+
 
 function create() {
 
-    const [lat,setLat]=useState(null)
-    const [long,setLong]=useState(null)
+    const [loading, setLoading] = useState(false)
+    const [type, setType] = useState(null)
+    const [capacity, setCapacity] = useState(null)
+     
+    const latitudeRef = useRef(null)
+    const longitudeRef = useRef(null)
 
     const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
         ssr: false
       })
+
+    const updateCoordinates = (coords) => {
+        //   setLatitude(coords.lat)
+        //   setLongitude(coords.lng)
+        latitudeRef.current.value = coords.lat
+        longitudeRef.current.value = coords.lng
+    }
+
+    async function AddEstblishment(type, capacity, latitude, longitude) {
+        try {
+          setLoading(true)
+          console.log(type,capacity,longitude,latitude)
+            
+          const data = {
+            "type":type,
+            "capacity":capacity,
+            "latitude":latitude,
+            "longitude":longitude,
+            "status":"active"
+          }
+    
+          let { error } = await supabase.from('establishment').upsert(data, {
+            returning: 'minimal', // Don't return the value after inserting
+          })
+    
+          if (error) {
+            throw error
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+          setLoading(false)
+        }
+      }
 
     return (
         <div>
@@ -21,34 +59,45 @@ function create() {
             <Layout>
                 <div className={styles.container}>
                     <h2 style={{margin:"10px"}}>Create Establishment</h2>
-                    <form>
+                    <div>
                     
-                        <label for="category">Select Type of Establishment</label>
-                        <select className={styles.input_box} name="category">
+                        <label >Select Type of Establishment</label>
+                        <select className={styles.input_box} name="category" onChange={(e) => setType(e.target.value)}>
                             <option value="" disabled selected>Choose Category...</option>
-                            <option value="1">Factory</option>
-                            <option value="2">Warehouse</option>
-                            <option value="3">Store</option>
+                            <option value="Factory">Factory</option>
+                            <option value="Warehouse">Warehouse</option>
+                            <option value="Store">Store</option>
                         </select>
 
-                        <label for="title">Storage Capacity</label>
-                        <input className={styles.input_box} type="number" id="title" name="title" placeholder="Enter Quantity..."/>
+                        <label >Storage Capacity</label>
+                        <input className={styles.input_box} type="number" id="title" name="title" 
+                        placeholder="Enter Quantity..." onChange={(e) => setCapacity(e.target.value)}/>
 
-                        <label for="title">Location</label>
-                        <div className={styles.icon_input_box} style={{display:"flex",alignItems:"center"}}>
-                            <i className="fas fa-map-marker-alt" style={{fontWeight:"100"}}></i>
-                            <input className={styles.icon_input}  type="number" min="0.00" step="any" id="title" name="title" placeholder="Enter Location..."/>
-    
+                        <label >Location</label>
+                        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                            <div className={styles.icon_input_box} style={{display:"flex",alignItems:"center",width:"49%"}}>
+                                <i className="fas fa-map-marker-alt" style={{fontWeight:"100",marginRight:"10px"}}></i>
+                                <input className={styles.icon_input} ref={latitudeRef}  type="number" min="0.00" step="any" id="title" name="title" placeholder="Enter Latitude..." disabled/>
+                            </div>
+                            <div className={styles.icon_input_box} style={{display:"flex",alignItems:"center",width:"49%"}}>
+                                <i className="fas fa-map-marker-alt" style={{fontWeight:"100",marginRight:"10px"}}></i>
+                                <input className={styles.icon_input} ref={longitudeRef}  type="number" min="0.00" step="any" id="title" name="title" placeholder="Enter Longitude..." disabled/>
+                            </div>
                         </div>
-            
-                        <div styles={{ height: "80%", width: "75%", zIndex: "100" }}>
-                        <MapWithNoSSR ></MapWithNoSSR>
+
+                        <div style={{ height: "220px", width: "100%" }}>
+                        <MapWithNoSSR returnCoordinates={updateCoordinates} posx={12.284529832373737} posy={76.64039565005605}/>
                         </div>
                         
                         <br/>
                     
-                        <button className={styles.btn}>Add Location</button>
-                    </form>
+                        <button className={styles.btn}
+                            onClick={() => 
+                                AddEstblishment(type, capacity, latitudeRef.current.value, longitudeRef.current.value )}
+                            disabled={loading}>
+                              {loading ? 'Loading ...' : 'Add Location'}
+                        </button>
+                    </div>
                 </div>
                 
             </Layout>
