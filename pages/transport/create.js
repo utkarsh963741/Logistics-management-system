@@ -52,7 +52,7 @@ function create() {
                     <div>
                         <label>Select Type</label>
                         <select className={styles.input_box} name="category"  onChange={(e) => setType(e.target.value)}>
-                            <option value="" disabled defaultValue>Choose Category...</option>
+                            <option value="" disabled selected>Choose Category...</option>
                             {vehicleOptions}
                         </select>
 
