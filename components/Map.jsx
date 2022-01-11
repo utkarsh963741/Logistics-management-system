@@ -27,7 +27,7 @@ const Map = (props) => {
 
     return (
         <>
-            {posx && posy ? <MapContainer style={{ height: "100%", width: "100%", zIndex: "100" }} center={[posx, posy]} zoom={14} scrollWheelZoom={false}>
+            {posx && posy ? <MapContainer style={{ height: "100%", width: "100%", zIndex: "10" }} center={[posx, posy]} zoom={14} scrollWheelZoom={false}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
