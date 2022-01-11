@@ -15,7 +15,7 @@ function map() {
         <div>
             <Layout>
                 <div id="map" style={{ height: "100%", width: "100%" }}>
-                    <MapWithNoSSR />
+                <MapWithNoSSR returnCoordinates={null} posx={12.284529832373737} posy={76.64039565005605}/>
                 </div>
             </Layout>
         </div>

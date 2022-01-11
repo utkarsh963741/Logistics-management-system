@@ -5,21 +5,25 @@ import "leaflet-defaulticon-compatibility";
 import { useEffect, useState } from 'react';
 import DraggableMarker from './DraggableMarker';
 
-const Map = () => {
+const Map = (props) => {
 
-    const [posx, setPosx] = useState(null)
-    const [posy, setPosy] = useState(null)
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function (position) {
+    // const [posx, setPosx] = useState(12.284529832373737)
+    // const [posy, setPosy] = useState(76.64039565005605)
+    const [posx, setPosx] = useState(props.posx)
+    const [posy, setPosy] = useState(props.posy)
+    
 
-            setPosx(position.coords.latitude)
-            setPosy(position.coords.longitude)
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
+    // useEffect(() => {
+    //     navigator.geolocation.getCurrentPosition(function (position) {
 
-        });
-    }, [])
+    //         setPosx(position.coords.latitude)
+    //         setPosy(position.coords.longitude)
+    //         console.log("Latitude is :", position.coords.latitude);
+    //         console.log("Longitude is :", position.coords.longitude);
+
+    //     });
+    // }, [])
 
     return (
         <>
@@ -38,7 +42,7 @@ const Map = () => {
             Hey ! you found me
             </Popup>
         </Marker> */}
-                <DraggableMarker lat={posx} lng={posy} draggable={true} />
+                <DraggableMarker lat={posx} lng={posy} draggable={true} returnValues={props.returnCoordinates}/>
             </MapContainer> : ""}
 
         </>
