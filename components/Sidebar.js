@@ -46,10 +46,13 @@ function Sidebar(props) {
                         Create Location
                     </li>
                 </Link>
+                <Link href='/listLocation/table'>
                 <li className={styles.nav_item}>
                     <i className='fas fa-list-ul'></i>
                     List Locations
                 </li>
+                
+                </Link>
                 <Link href='/locations/map'>
                     <li className={styles.nav_item}>
                         <i className='fas fa-globe-africa'></i>
