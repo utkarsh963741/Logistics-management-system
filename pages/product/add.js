@@ -75,10 +75,11 @@ function add() {
     async function AddProduction({ selected_factory_id, selected_product_id, quantity }) {
         try {
           setLoading(true)
+          console.log()
           var d = new Date(Date.now());
           d.setMinutes(d.getMinutes() + (quantity*product_data[selected_product_id].production_time));
           const data = {
-            "pid":selected_product_id,
+            "pid":product_data[selected_product_id].pid,
             "fid":selected_factory_id,
             "expected_completion":d,
             "status":"under production",
@@ -104,7 +105,7 @@ function add() {
     if(product_data && factory_data)
     {
         var productOptions = [...product_data].map((item,index)=>{
-            return(<option key={index} value={item.pid}>{item.name}</option>)
+            return(<option key={index} value={index}>{item.name}</option>)
         })
 
         var factoryOptions = [...factory_data].map((item,index)=>{
