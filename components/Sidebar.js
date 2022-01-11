@@ -30,10 +30,18 @@ function Sidebar(props) {
                 </Link>
                 <Link href='/product/create'>
                     <li className={styles.nav_item}>
-                        <div>
-                            <i className='fas fa-box-open'></i>
-                            Create Product
-                        </div>
+                            <div>
+                                <i className='fas fa-box-open'></i>
+                                Create Product
+                            </div>
+                    </li>
+                </Link>
+                <Link href='/product/add'>
+                    <li className={styles.nav_item}>
+                            <div>
+                                <i className='fas fa-box-open'></i>
+                                Add Production
+                            </div>
                     </li>
                 </Link>
                 <li className={styles.nav_item}>
