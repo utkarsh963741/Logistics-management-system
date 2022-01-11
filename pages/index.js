@@ -8,6 +8,7 @@ import Auth from '../components/Auth'
 
 import styles from '../styles/Home.module.css'
 
+
 export default function Home() {
   const [session, setSession] = useState(null)
   const router = useRouter()

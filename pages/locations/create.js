@@ -1,10 +1,16 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import styles from '../../styles/Form.module.css'
+import dynamic from "next/dynamic";
 import { supabase } from '../../utils/supabaseClient'
 import { useRouter } from 'next/router'
 
 function create() {
+
+    const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
+        ssr: false
+      })
+
     return (
         <div>
 
@@ -29,8 +35,12 @@ function create() {
                             <i className="fas fa-map-marker-alt" style={{fontWeight:"100"}}></i>
                             <input className={styles.icon_input}  type="number" min="0.00" step="any" id="title" name="title" placeholder="Enter Location..."/>
                         </div>
-                        <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.535196787511!2d76.63861834894139!3d12.279702091269774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf6557fa108691%3A0x46335fbd1b32437e!2sNIE%20Diamond%20Jubilee%20Block!5e0!3m2!1sen!2sin!4v1640772392044!5m2!1sen!2sin" 
-                        style={{height:"200px",width:"100%",border:"none"}}></iframe>
+                        {/* <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.535196787511!2d76.63861834894139!3d12.279702091269774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf6557fa108691%3A0x46335fbd1b32437e!2sNIE%20Diamond%20Jubilee%20Block!5e0!3m2!1sen!2sin!4v1640772392044!5m2!1sen!2sin" 
+                        style={{height:"200px",width:"100%",border:"none"}}></iframe> */}
+                        <div styles={{ height: "80%", width: "75%", zIndex: "100" }}>
+                        <MapWithNoSSR/>
+                        </div>
+                        
                         <br/>
                     
                         <button className={styles.btn}>Add Location</button>
