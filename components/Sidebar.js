@@ -88,7 +88,7 @@ function Sidebar(props) {
                     List Vehicles
                 </li>
                 </Link>
-                {/* <Link href='/retail/create'>
+                <Link href='/retail/create'>
                     <li className={styles.nav_item}>
                         <i className='fas fa-dollar-sign'></i>
                         Add Sales
@@ -98,7 +98,7 @@ function Sidebar(props) {
                 <li className={styles.nav_item}>
                     <i className='fas fa-file-invoice-dollar'></i>
                     List Sales
-                </li> */}
+                </li>
             </ul>
             <ul className={styles.nav}>
                 <li className={styles.nav_item}>

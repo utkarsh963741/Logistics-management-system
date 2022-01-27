@@ -49,7 +49,7 @@ function table() {
         <div>
 
             <Layout>
-                <div style={{ width: '80vw', maxHeight: 'var(--container-height)' }}>
+                <div style={{ width: '80vw', maxHeight: 'var(--container-height)' ,overflow:"hidden",overflowY:"scroll"}}>
                     <Table columns={columns} data={tableData} title={title}></Table>
                 </div>
 
