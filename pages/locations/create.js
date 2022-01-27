@@ -19,6 +19,10 @@ function create() {
         ssr: false
       })
 
+      const DraggableMarkerWithNoSSR = dynamic(() => import("../../components/DraggableMarker"), {
+        ssr: false
+      })
+
     const updateCoordinates = (coords) => {
         //   setLatitude(coords.lat)
         //   setLongitude(coords.lng)
@@ -86,7 +90,16 @@ function create() {
                         </div>
 
                         <div style={{ height: "220px", width: "100%" }}>
-                        <MapWithNoSSR returnCoordinates={updateCoordinates} posx={12.284529832373737} posy={76.64039565005605}/>
+                        <MapWithNoSSR returnCoordinates={updateCoordinates} posx={12.284529832373737} posy={76.64039565005605}>
+                          <div>
+                          <DraggableMarkerWithNoSSR 
+                            lat={12.284529832373737} 
+                            lng={76.64039565005605} 
+                            draggable={true} 
+                            returnValues={updateCoordinates}
+                            />
+                          </div>
+                          </MapWithNoSSR>
                         </div>
                         
                         <br/>

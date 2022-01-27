@@ -25,7 +25,7 @@ function table() {
         { title: 'Capacity', field: 'capacity', type: 'numeric' },
         
     ]
-    const title = "Locations"
+    const title = "Vehicles"
 
     async function fetchData() {
         try {
