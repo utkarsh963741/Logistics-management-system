@@ -1,11 +1,23 @@
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMapEvent } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import DraggableMarker from './DraggableMarker';
 
+
+function SetViewOnClick({ animateRef }) {
+    const map = useMapEvent('click', (e) => {
+      map.setView(e.latlng, map.getZoom(), {
+        animate: animateRef.current || false,
+      })
+    })
+  
+    return null
+  }
+
 const Map = (props) => {
+    const animateRef = useRef(true)
 
 
     // const [posx, setPosx] = useState(12.284529832373737)
@@ -36,6 +48,8 @@ const Map = (props) => {
                 {/* <DraggableMarker lat={posx} lng={posy} draggable={true} returnValues={props.returnCoordinates} /> */}
                 
                 {props.children}
+
+                <SetViewOnClick animateRef={animateRef} />
             
             </MapContainer> : ""}
 
