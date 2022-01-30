@@ -46,7 +46,7 @@ function map() {
                 lng={item.longitude} 
                 draggable={false} 
                 returnValues={null}
-                color={item.type=="Factory"?'red':item.type=="Warehouse"?'yellow':'blue'}
+                icon={item.type=="Factory"?'factory':item.type=="Warehouse"?'wharehouse':item.type=="Store"?'store':''}
                 popup_data={item.type+" - "+item.eid}/>
             )
         })

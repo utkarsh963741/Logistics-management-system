@@ -73,6 +73,7 @@ function Home() {
             <Layout>
                 <div id="map" style={{ height: "100%", width: "100%" }}>
                     <MapWithNoSSR returnCoordinates={null} posx={12.284529832373737} posy={76.64039565005605}/>
+                    {/* <img src="https://kgbtzpfzpiujvhawuxcu.supabase.in/storage/v1/object/public/images/0.2230409845338741.png"/> */}
                 </div>
             </Layout>
 

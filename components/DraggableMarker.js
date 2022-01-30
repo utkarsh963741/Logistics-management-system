@@ -23,6 +23,18 @@ function DraggableMarker(props) {
     yellow = new LeafIcon({
       iconUrl:
         "/icons/map-pins/yellow.png"
+    }),
+    factory = new LeafIcon({
+      iconUrl:
+        "/icons/map-pins/factory.png"
+    }),
+    wharehouse = new LeafIcon({
+      iconUrl:
+        "/icons/map-pins/warehouse.png"
+    }),
+    store = new LeafIcon({
+      iconUrl:
+        "/icons/map-pins/store.png"
     });
 
     const eventHandlers = useMemo(
@@ -48,7 +60,12 @@ function DraggableMarker(props) {
         draggable={props.draggable}
         eventHandlers={eventHandlers}
         position={position}
-        icon={props.color=='red'?red:props.color=='yellow'?yellow:blue}
+        icon={props.icon=='factory'?factory:
+              props.icon=='wharehouse'?wharehouse:
+              props.icon=='store'?store:
+              props.icon=='red'?red:
+              props.icon=='yellow'?yellow:
+              blue}
         ref={markerRef}>
           {
             props.popup_data?

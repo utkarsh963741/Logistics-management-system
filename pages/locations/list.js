@@ -4,9 +4,7 @@ import styles from '../../styles/Form.module.css'
 import { supabase } from '../../utils/supabaseClient'
 import { useRouter } from 'next/router'
 import Table from '../../components/Table'
-
-
-
+import Link from 'next/link'
 
 
 function table() {
@@ -25,6 +23,7 @@ function table() {
         { title: 'Longitude', field: 'longitude', type: 'numeric' },
         { title: 'Capacity', field: 'capacity', type: 'numeric' },
         { title: 'Status', field: 'status' },
+        { field: 'test' },
     ]
     const title = "Locations"
 
@@ -34,9 +33,15 @@ function table() {
                 .from('establishment')
                 .select(`*`)
             if(data){
-                setTableData(data)
-                console.log(data)
-
+                var datafin=[]
+                data.forEach(element => {
+                    let temp = element
+                    temp.test = <Link href={"/locations/"+element.eid}><a><i className='fal fa-external-link'></i></a></Link>
+                    console.log(temp)
+                    datafin.push(temp)
+                });
+                setTableData(datafin)
+                console.log(datafin)
             }
         }
         catch{
