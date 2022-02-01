@@ -5,7 +5,6 @@ import { supabase } from '../../utils/supabaseClient'
 import { useRouter } from 'next/router'
 import Table from '../../components/Table'
 
-
 function table() {
 
     const [tableData,setTableData]=useState(null)
@@ -16,32 +15,34 @@ function table() {
 
     
     const columns = [
-        { title: 'PID', field: 'pid' },
-        { title: 'Product', field: 'productDetail' },
-        { title: 'Production Time', field: 'production_time', type: 'numeric' },
-        { title: 'Price', field: 'price', type: 'numeric' }
+        { title: 'TID', field: 'tid' },
+        { title: 'From', field: 'from' },
+        { title: 'To', field: 'to' },
+        { title: 'Product', field: 'product-details.name'},
+        { title: 'Quantity', field: 'quantity'},
+        { title: 'Vehicle ID', field: 'vid'},
+        { title: 'Status', field: 'status'},
+        
     ]
-    const title = "Product"
+    const title = "Transports"
 
     async function fetchData() {
         try {
             const { data, error } = await supabase
-                .from('product')
-                .select(`*`)
+                .from('transport')
+                .select(`*,product-details:product(*)`)
             if(data){
-                let final=[]
+                let final = []
                 data.forEach(elem=>{
-                    elem.productDetail= <div style={{display:"flex",alignItems:"center"}}><img src={"https://kgbtzpfzpiujvhawuxcu.supabase.in/storage/v1/object/public/images/" + elem.image_url} width="50px" height="50px" style={{ margin: " 10px 10px", borderRadius: "50%" }} />
-
-                    <p style={{ flexGrow: "1" }}>{elem.name}</p></div>
-                    
-                    elem.production_time = <div>{elem.production_time} minutes</div>
-                    elem.price = <div><i className="fal fa-rupee-sign"/> {elem.price}</div>
-
+                    elem.status = elem.status=="completed"?
+                        <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}> <i className="fas fa-circle" style={{color:"green"}}></i> {elem.status} </div>
+                        :
+                        <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}><i className="fas fa-circle" style={{color:"blue"}}></i> {elem.status} </div>
                     final.push(elem)
                 })
                 setTableData(final)
                 console.log(final)
+
             }
         }
         catch{

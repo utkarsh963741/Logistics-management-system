@@ -19,6 +19,7 @@ function table() {
         { title: 'License', field: 'licence' },
         { title: 'Type', field: 'type' },
         { title: 'Capacity', field: 'capacity', type: 'numeric' },
+        { title: 'Status', field: 'status', type: 'numeric' },
         
     ]
     const title = "Vehicles"
@@ -29,8 +30,16 @@ function table() {
                 .from('vehicle')
                 .select(`*`)
             if(data){
-                setTableData(data)
-                console.log(data)
+                let final = []
+                data.forEach(elem=>{
+                    elem.status = elem.status=="available"?
+                    <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}> <i className="fas fa-circle" style={{color:"green"}}></i> {elem.status} </div>
+                    :
+                    <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}><i className="fas fa-circle" style={{color:"red"}}></i> {elem.status} </div>
+                    final.push(elem)
+                })
+                setTableData(final)
+                console.log(final)
 
             }
         }

@@ -7,10 +7,23 @@ function polyLine(props){
 
     return(
         <Polyline
-            pathOptions={{ color: 'lime' }} 
+            pathOptions={{ color: 'black' }} 
             positions={props.positions} 
             ref={polylineRef}
-        />
+        >
+            {
+                props.popup_data?
+                <Popup>
+                    From : {props.popup_data.from}<br/>
+                    To : {props.popup_data.to}<br/>
+                    Vehicle :  {props.popup_data.vid}<br/>
+                    Product :  {props.popup_data.pid}<br/>
+                    Quantity :  {props.popup_data.quantity}
+                </Popup>
+                :
+                ""
+            }
+        </Polyline>
     )
 }
 

@@ -66,3 +66,22 @@
 .btn:hover {
     color:white;
 }
+
+
+.product_select_container
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product_select
+{
+    border:1px dashed var(--color-black);
+    border-radius: 10px;
+    margin:10px 0;
+    width:45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}

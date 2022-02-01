@@ -1,9 +1,10 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef,useEffect} from 'react'
 import Layout from '../../components/Layout'
 import styles from '../../styles/Form.module.css'
 import dynamic from "next/dynamic";
 import { supabase } from '../../utils/supabaseClient'
 import { useRouter } from 'next/router'
+import axios from 'axios';
 
 
 function create() {
@@ -11,6 +12,7 @@ function create() {
     const [loading, setLoading] = useState(false)
     const [type, setType] = useState(null)
     const [capacity, setCapacity] = useState(null)
+    const [productData,setProductData]=useState(null)
      
     const latitudeRef = useRef(null)
     const longitudeRef = useRef(null)
@@ -22,6 +24,26 @@ function create() {
       const DraggableMarkerWithNoSSR = dynamic(() => import("../../components/DraggableMarker"), {
         ssr: false
       })
+
+      useEffect(()=>{
+        fetchData();
+    },[])
+    
+      async function fetchData() {
+        try {
+            const { data, error } = await supabase
+                .from('product')
+                .select(`*`)
+            if(data){
+                setProductData(data)
+                console.log(data)
+
+            }
+        }
+        catch{
+            alert(error.message)
+        }
+    }
 
     const updateCoordinates = (coords) => {
         //   setLatitude(coords.lat)
@@ -35,7 +57,7 @@ function create() {
           setLoading(true)
           console.log(type,capacity,longitude,latitude)
             
-          const data = {
+          const upload = {
             "type":type,
             "capacity":capacity,
             "latitude":latitude,
@@ -43,18 +65,76 @@ function create() {
             "status":"active"
           }
     
-          let { error } = await supabase.from('establishment').upsert(data, {
-            returning: 'minimal', // Don't return the value after inserting
-          })
+          let { data, error } = await supabase.from('establishment').upsert(upload)
     
           if (error) {
             throw error
+          }
+          if(data)
+          {
+            createInventoryEntry(data)
+            createRoutes(data)
+            console.log(data)
           }
         } catch (error) {
           alert(error.message)
         } finally {
           setLoading(false)
         }
+      }
+
+      async function createInventoryEntry(data)
+      {
+        try {
+          setLoading(true)
+          console.log(data)
+          
+          if(data[0].type!='Factory')
+          {
+            productData.forEach(element => {    
+              let upload = {
+                'eid':data[0].eid,
+                'pid':element.pid,
+                'quantity_left':data[0].type=='Warehouse'?250:100,
+              }
+
+              console.log(upload)
+
+              supabase.from('inventory').upsert(upload).then(e=>console.log(e)).catch(e=>console.log(e))
+            });
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      function createRoutes(data)
+      {
+        
+        if(data[0].type=="Factory")
+        {
+          axios.post(`https://obscure-falls-39470.herokuapp.com/distance-factory?eid=`+data[0].eid)
+          .then(res => {
+            console.log(res)
+          })
+        }
+        else if(data[0].type=="Warehouse")
+        {
+          axios.post(`https://obscure-falls-39470.herokuapp.com/distance-warehouse?eid=`+data[0].eid)
+          .then(res => {
+            console.log(res)
+          })
+        }
+        else if(data[0].type=="Store")
+        {
+          axios.post(`https://obscure-falls-39470.herokuapp.com/distance-store?eid=`+data[0].eid)
+          .then(res => {
+            console.log(res)
+          })
+        }
+        
       }
 
     return (

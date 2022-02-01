@@ -122,7 +122,7 @@ function add() {
                         
                             <label>Select Product</label>
                             <select className={styles.input_box} name="category" onChange={(e) => setSelectedProductID(e.target.value)}>
-                                <option value="" disabled selected>Choose Category...</option>
+                                <option value="" disabled selected>Choose Product Category...</option>
                                 {productOptions}
                             </select>
 

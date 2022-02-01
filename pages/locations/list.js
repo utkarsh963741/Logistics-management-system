@@ -19,10 +19,11 @@ function table() {
     const columns = [
         { title: 'EID', field: 'eid' },
         { title: 'Type', field: 'type' },
+        { title: 'Status', field: 'status' },
+        { title: 'Max Capacity', field: 'capacity', type: 'numeric' },
+        { title: 'Current Inventory', field: 'curr_capacity', type: 'numeric' },
         { title: 'Latitude', field: 'latitude', type: 'numeric' },
         { title: 'Longitude', field: 'longitude', type: 'numeric' },
-        { title: 'Capacity', field: 'capacity', type: 'numeric' },
-        { title: 'Status', field: 'status' },
         { field: 'test' },
     ]
     const title = "Locations"
@@ -31,11 +32,16 @@ function table() {
         try {
             const { data, error } = await supabase
                 .from('establishment')
-                .select(`*`)
+                .select(`*,inventory(*)`)
             if(data){
                 var datafin=[]
                 data.forEach(element => {
+                    let sum =0
+                    element.inventory.forEach(val=>{
+                        sum+=val.quantity_left
+                    })
                     let temp = element
+                    temp.curr_capacity = sum
                     temp.test = <Link href={"/locations/"+element.eid}><a><i className='fal fa-external-link'></i></a></Link>
                     console.log(temp)
                     datafin.push(temp)
@@ -44,8 +50,8 @@ function table() {
                 console.log(datafin)
             }
         }
-        catch{
-            alert(error.message)
+        catch(e){
+            console.log(e)
         }
     }
 

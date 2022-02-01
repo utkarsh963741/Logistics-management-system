@@ -10,9 +10,8 @@ function create() {
     const [licence, setLicence] = useState(null)
 
     const vehicleData = [
-                            {"name":"Truck", "capacity":500, "speed":50},
+                            {"name":"Truck", "capacity":250, "speed":50},
                             {"name":"Van", "capacity":100, "speed":75},
-                            {"name":"Mini-truck", "capacity":200, "speed":60},
                         ]
 
     var vehicleOptions = [...vehicleData].map((item,index)=>{return(<option key={index} value={index}>{item.name}</option>)})
@@ -58,7 +57,7 @@ function create() {
 
                         <label >Licence Number</label>
                         <input className={styles.input_box} type="text" id="title" name="title" 
-                            placeholder="Enter Quantity..."  onChange={(e) => setLicence(e.target.value)}/>
+                            placeholder="Enter Licence Number..."  onChange={(e) => setLicence(e.target.value)}/>
                     
                         <button 
                             className={styles.btn}

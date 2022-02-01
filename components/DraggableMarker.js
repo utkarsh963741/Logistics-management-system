@@ -50,7 +50,7 @@ function DraggableMarker(props) {
     )
 
     useEffect(()=>{
-        console.log(position)
+        // console.log(position)
         if(props.returnValues!=null)
           props.returnValues(position)
     },[position])

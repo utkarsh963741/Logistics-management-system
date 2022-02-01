@@ -24,7 +24,7 @@ function table() {
         { title: 'Factory Name', field: 'factory_name'},
         { title: 'Quantity', field: 'quantity', type: 'numeric' },
         { title: 'Expected Completion Time', field: 'expected_completion', type: 'numeric' },
-        { title: 'PID', field: 'status' },
+        { title: 'Status', field: 'status' },
     ]
     const title = "Production"
 
@@ -39,7 +39,10 @@ function table() {
                     
                     item.product_name=item.product_name.name
                     item.factory_name='Factory ID-'+item.fid
-                    
+                    item.status = item.status=="done"?
+                    <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}> <i className="fas fa-circle" style={{color:"green"}}></i> {item.status} </div>
+                    :
+                    <div style={{background:"var(--color-bg-primary)",width:"fit-content",padding:"5px 20px",borderRadius:'30px'}}><i className="fas fa-circle" style={{color:"yellow"}}></i> {item.status} </div>
 
                     return item
                 })

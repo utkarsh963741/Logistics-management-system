@@ -16,32 +16,29 @@ function table() {
 
     
     const columns = [
-        { title: 'PID', field: 'pid' },
-        { title: 'Product', field: 'productDetail' },
-        { title: 'Production Time', field: 'production_time', type: 'numeric' },
-        { title: 'Price', field: 'price', type: 'numeric' }
+        { title: 'RTID', field: 'rtid' },
+        { title: 'SID', field: 'sid' },
+        { title: 'Customer Name', field: 'customer_name'},
+        { title: 'Customer Phone No.', field: 'customer_ph_no'},
+        { title: 'Product Name', field: 'product.name' },
+        { title: 'Quantity', field: 'quantity', type: 'numeric' },
+        { title: 'Order Time', field: 'created_at'}
     ]
     const title = "Product"
 
     async function fetchData() {
         try {
             const { data, error } = await supabase
-                .from('product')
-                .select(`*`)
+                .from('retail')
+                .select(`rtid,pid,sid,customer_name,customer_ph_no,quantity,created_at,product(name)`)
             if(data){
-                let final=[]
+                let table = []
                 data.forEach(elem=>{
-                    elem.productDetail= <div style={{display:"flex",alignItems:"center"}}><img src={"https://kgbtzpfzpiujvhawuxcu.supabase.in/storage/v1/object/public/images/" + elem.image_url} width="50px" height="50px" style={{ margin: " 10px 10px", borderRadius: "50%" }} />
-
-                    <p style={{ flexGrow: "1" }}>{elem.name}</p></div>
-                    
-                    elem.production_time = <div>{elem.production_time} minutes</div>
-                    elem.price = <div><i className="fal fa-rupee-sign"/> {elem.price}</div>
-
-                    final.push(elem)
+                    let date = new Date(elem.created_at)
+                    elem.created_at=date.toLocaleString()
                 })
-                setTableData(final)
-                console.log(final)
+                setTableData(data)
+                console.log(data)
             }
         }
         catch{
